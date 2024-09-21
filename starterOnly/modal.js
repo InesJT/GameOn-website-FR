@@ -11,13 +11,14 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.querySelectorAll(".close");
+const modalthanks = document.querySelector(".thanks");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal event
-closeBtn.addEventListener("click", closeModal);
+closeBtn.forEach((btn) => btn.addEventListener("click", closeModals));
 
 // launch modal form
 function launchModal() {
@@ -27,6 +28,20 @@ function launchModal() {
 // close modal
 function closeModal() {
   modalbg.style.display = "none";
+}
+
+function showThanks() {
+  modalthanks.style.display = "block";
+}
+
+function closeThanks() {
+  modalthanks.style.display = "none";
+}
+
+// close modal
+function closeModals() {
+  closeModal();
+  closeThanks();
 }
 
 function showHideError(field, isValid) {
@@ -76,5 +91,9 @@ function validate() {
   const generalConditions = document.getElementById("checkbox1");
   isValid = isValid && generalConditions.checked;
   showHideError(generalConditions, generalConditions.checked);
-  return isValid;
+  if (isValid) {
+    closeModal();
+    showThanks();
+  }
+  return false;
 }
