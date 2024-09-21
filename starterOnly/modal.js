@@ -29,26 +29,52 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
+function showHideError(field, isValid) {
+  if (isValid) {
+    field.parentElement.setAttribute("data-error-visible", false);
+  } else {
+    field.parentElement.setAttribute("data-error-visible", true);    
+  }
+}
+
+function showHideLocationError(field, isValid) {
+  if (isValid) {
+    field[0].parentElement.setAttribute("data-error-visible", false);
+  } else {
+    field[0].parentElement.setAttribute("data-error-visible", true);    
+  }
+}
+
 function validate() {
   // validate first name field
-  const firstValue = document.getElementById("first").value;
-  if (firstValue.length < 2) return false;
+  const firstField = document.getElementById("first");
+  let isValid = firstField.value.length >= 2;
+  showHideError(firstField, firstField.value.length >= 2);
   // validate last name field
-  const lastValue = document.getElementById("last").value;
-  if (lastValue.length < 2) return false;
+  const lastField = document.getElementById("last");
+  isValid = isValid && lastField.value.length >= 2;
+  showHideError(lastField, lastField.value.length >= 2);
   // validate email field
-  const emailValue = document.getElementById("email").value;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) return false;
+  const emailField = document.getElementById("email");
+  isValid = isValid && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value);
+  showHideError(emailField, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value));
+  // validate birthdate field
+  const birthdateField = document.getElementById("birthdate");
+  isValid = isValid && birthdateField.value.length > 0;
+  showHideError(birthdateField, birthdateField.value.length > 0)
   // validate quantity field
-  const quantityValue = document.getElementById("quantity").value;
-  if (quantityValue.length === 0) return false;
+  const quantityField = document.getElementById("quantity");
+  isValid = isValid && quantityField.value.length > 0;
+  showHideError(quantityField, quantityField.value.length > 0)
   // validate that at least one radio button for location is selected
   const locationBtns = document.getElementsByName("location");
   let locationSelected = false;
   locationBtns.forEach((btn) => locationSelected = locationSelected || btn.checked);
-  if (!locationSelected) return false;
+  isValid = isValid && locationSelected;
+  showHideLocationError(locationBtns, locationSelected);
   // validate that the general conditions are read and accepted
   const generalConditions = document.getElementById("checkbox1");
-  if (!generalConditions.checked) return false;
-  return true;
+  isValid = isValid && generalConditions.checked;
+  showHideError(generalConditions, generalConditions.checked);
+  return isValid;
 }
