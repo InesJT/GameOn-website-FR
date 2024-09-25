@@ -74,10 +74,12 @@ img {
     float: right;
     display: block;
   }
+  
 }
 
 @media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {position: relative;
+  }
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -549,5 +551,8 @@ footer {
   to {
     opacity: 1;
   }
+}
+@media screen and (max-width: 756px) {
+  
 }
 
