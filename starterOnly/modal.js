@@ -150,8 +150,5 @@ function validate() {
       closeModal();
       showThanks();
   }
-  else{
-    alert("Veuillez vérifier tout le formulaire!! ");
-  }
-  return false; 
+    return false; 
 }
